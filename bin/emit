@@ -1,0 +1,9 @@
+#!/usr/bin/env node
+
+var Emit = require("@emit-js/emit").Emit
+var emit = new Emit()
+
+require("@emit-js/log").log(emit)
+require("../dist/cli").cli(emit)
+
+emit.cli().catch(console.error)
