@@ -1,13 +1,18 @@
-import { Emit } from "@emit-js/emit"
-import { cli } from "../"
+import { Cli } from "../"
+import { join } from "path"
 
-let emit: Emit
+const root = join(__dirname, "../")
 
-beforeEach((): void => {
-  emit = new Emit()
-  cli(emit)
+test("can't find composer", async (): Promise<void> => {
+  const cli = new Cli()
+  await expect(
+    cli["findComposerPath"](root, "test-does-not-exist")
+  ).rejects.toThrow()
 })
 
-test("cli", (): void => {
-  expect(cli).not.toBeUndefined()
+test("find composer", async (): Promise<void> => {
+  const cli = new Cli()
+  expect(
+    await cli["findComposerPath"](root, "cli")
+  ).toBe(`${root}dist/cli.js`)
 })

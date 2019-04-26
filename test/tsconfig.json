@@ -2,6 +2,6 @@
   "compilerOptions": {
     "module": "commonjs",
     "lib": ["es2015"],
-    "types": ["jest"]
+    "types": ["jest", "node"]
   }
 }
