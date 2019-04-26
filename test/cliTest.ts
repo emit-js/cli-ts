@@ -17,16 +17,28 @@ test("find composer", async (): Promise<void> => {
   ).toBe(`${root}dist/cli.js`)
 })
 
-test("update from config without event", async (): Promise<void> => {
-  const argv: getopts.ParsedOptions = { _: [] }
-  expect(
-    await cli["updateFromConfig"](argv, `${root}test`, "does-not-exist")
-  ).toEqual(["does-not-exist", `${root}test/emit.json`])
-})
+test(
+  "update from config without event",
+  async (): Promise<void> => {
+    const argv: getopts.ParsedOptions = { _: [] }
+    expect(
+      await cli["updateFromConfig"](
+        argv, `${root}test`, "does-not-exist"
+      )
+    ).toEqual([
+      "does-not-exist", join(root, "test/emit.json")
+    ])
+  }
+)
 
-test("update from config with event", async (): Promise<void> => {
-  const argv: getopts.ParsedOptions = { _: [] }
-  expect(
-    await cli["updateFromConfig"](argv, `${root}test`, "test")
-  ).toEqual(["override", `${root}test/emit.json`])
-})
+test(
+  "update from config with event",
+  async (): Promise<void> => {
+    const argv: getopts.ParsedOptions = { _: [] }
+    expect(
+      await cli["updateFromConfig"](
+        argv, `${root}test`, "test"
+      )
+    ).toEqual(["override", join(root, "test/emit.json")])
+  }
+)
