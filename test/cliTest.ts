@@ -14,7 +14,7 @@ test("can't find composer", async (): Promise<void> => {
 test("find composer", async (): Promise<void> => {
   expect(
     await cli["findComposerPath"](root, "cli")
-  ).toBe(`${root}dist/cli.js`)
+  ).toBe(join(root, "dist/cli.js"))
 })
 
 test(
@@ -23,7 +23,7 @@ test(
     const argv: getopts.ParsedOptions = { _: [] }
     expect(
       await cli["updateFromConfig"](
-        argv, `${root}test`, "does-not-exist"
+        argv, join(root, "test"), "does-not-exist"
       )
     ).toEqual([
       "does-not-exist", join(root, "test/emit.json")
