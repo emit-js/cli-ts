@@ -28,6 +28,7 @@ test(
     ).toEqual([
       "does-not-exist", join(root, "test/emit.json")
     ])
+    expect(argv).toEqual({ _: [] })
   }
 )
 
@@ -40,5 +41,6 @@ test(
         argv, `${root}test`, "test"
       )
     ).toEqual(["override", join(root, "test/emit.json")])
+    expect(argv).toEqual({ _: [], extra: true })
   }
 )

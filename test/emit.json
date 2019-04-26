@@ -1,5 +1,6 @@
 {
   "test": {
-    "eventName": "override"
+    "eventName": "override",
+    "extra": true
   }
 }
