@@ -19,38 +19,38 @@ export class Cli {
     const { emit } = e
     const argv = getopts(process.argv.slice(2))
 
-    let [eventId, ...args] = argv._
+    let [eventName, ...args] = argv._
     delete argv._
 
     let configPath
 
-    [eventId, configPath] = await this.updateFromConfig(
-      argv, eventId
+    [eventName, configPath] = await this.updateFromConfig(
+      argv, undefined, eventName
     )
 
     const composerPath = await this.findComposerPath(
-      configPath, eventId
+      configPath, eventName
     )
 
-    require(composerPath)[eventId](emit)
+    require(composerPath)[eventName](emit)
 
     const finalArgs =
       Object.keys(argv).length ? [...args, argv] : args
     
-    const finalEventId = eventId.replace(/@[^/]+\//, "")
+    const finalEventId = eventName.replace(/@[^/]+\//, "")
     
     return emit.emit(finalEventId, ...finalArgs)
   }
 
   private async findComposerPath(
     configPath: string,
-    eventId: string
+    eventName: string
   ): Promise<string> {
     const root = configPath
       ? dirname(configPath)
       : process.cwd()
     
-    const pattern = `${root}/**/dist/${eventId}.js`
+    const pattern = `${root}/**/dist/${eventName}.js`
 
     const paths = await glob(pattern, {
       ignore: "**/node_modules/**"
@@ -61,7 +61,7 @@ export class Cli {
       paths[0]
 
     if (!path) {
-      path = require.resolve(eventId)
+      path = require.resolve(eventName)
     }
 
     return path
@@ -69,22 +69,25 @@ export class Cli {
 
   private async updateFromConfig(
     argv: getopts.ParsedOptions,
-    eventId: string
+    cwd: string | undefined,
+    eventName: string
   ): Promise<[string, string]> {
-    const configPath = await findUp("emit.json")
+    const configPath = await findUp("emit.json", { cwd })
 
     if (configPath) {
-      const config = (await readJson(configPath))[eventId]
+      const config = (await readJson(configPath))[eventName]
 
-      if (config.eventId) {
-        eventId = config.eventId
-        delete config.eventId
+      if (config) {
+        if (config.eventName) {
+          eventName = config.eventName
+          delete config.eventName
+        }
+
+        Object.assign(argv, config)
       }
-
-      Object.assign(argv, config)
     }
 
-    return [eventId, configPath]
+    return [eventName, configPath]
   }
 }
 

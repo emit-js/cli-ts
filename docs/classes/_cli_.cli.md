@@ -39,7 +39,7 @@ ___
 
 ### `<Private>` findComposerPath
 
-▸ **findComposerPath**(configPath: *`string`*, eventId: *`string`*): `Promise`<`string`>
+▸ **findComposerPath**(configPath: *`string`*, eventName: *`string`*): `Promise`<`string`>
 
 *Defined in cli.ts:45*
 
@@ -48,7 +48,7 @@ ___
 | Name | Type |
 | ------ | ------ |
 | configPath | `string` |
-| eventId | `string` |
+| eventName | `string` |
 
 **Returns:** `Promise`<`string`>
 
@@ -57,7 +57,7 @@ ___
 
 ### `<Private>` updateFromConfig
 
-▸ **updateFromConfig**(argv: *`ParsedOptions`*, eventId: *`string`*): `Promise`<[`string`, `string`]>
+▸ **updateFromConfig**(argv: *`ParsedOptions`*, cwd: *`string` \| `undefined`*, eventName: *`string`*): `Promise`<[`string`, `string`]>
 
 *Defined in cli.ts:70*
 
@@ -66,7 +66,8 @@ ___
 | Name | Type |
 | ------ | ------ |
 | argv | `ParsedOptions` |
-| eventId | `string` |
+| cwd | `string` \| `undefined` |
+| eventName | `string` |
 
 **Returns:** `Promise`<[`string`, `string`]>
 
