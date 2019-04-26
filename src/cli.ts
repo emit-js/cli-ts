@@ -1,10 +1,10 @@
 import { Emit, EventType } from "@emit-js/emit"
+import * as findUp from "find-up"
+import { readJson } from "fs-extra"
 import * as getopts from "getopts"
 import * as globWithCallback from "glob"
 import { dirname } from "path"
 import { promisify } from "util"
-import * as findUp from "find-up"
-import { readJson } from "fs-extra"
 
 const glob = promisify(globWithCallback)
 
