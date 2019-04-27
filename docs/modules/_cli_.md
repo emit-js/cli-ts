@@ -42,7 +42,7 @@ ___
 
 ▸ **cli**(emit: *`Emit`*): `void`
 
-*Defined in cli.ts:94*
+*Defined in cli.ts:120*
 
 **Parameters:**
 

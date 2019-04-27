@@ -12,6 +12,7 @@
 
 * [cli](_cli_.cli.md#cli)
 * [findComposerPath](_cli_.cli.md#findcomposerpath)
+* [globPaths](_cli_.cli.md#globpaths)
 * [updateFromConfig](_cli_.cli.md#updatefromconfig)
 
 ---
@@ -41,7 +42,7 @@ ___
 
 ▸ **findComposerPath**(configPath: *`string`*, eventName: *`string`*): `Promise`<`string`>
 
-*Defined in cli.ts:45*
+*Defined in cli.ts:52*
 
 **Parameters:**
 
@@ -53,13 +54,30 @@ ___
 **Returns:** `Promise`<`string`>
 
 ___
+<a id="globpaths"></a>
+
+### `<Private>` globPaths
+
+▸ **globPaths**(argv: *`ParsedOptions`*): `Promise`<`string`[]>
+
+*Defined in cli.ts:77*
+
+**Parameters:**
+
+| Name | Type |
+| ------ | ------ |
+| argv | `ParsedOptions` |
+
+**Returns:** `Promise`<`string`[]>
+
+___
 <a id="updatefromconfig"></a>
 
 ### `<Private>` updateFromConfig
 
 ▸ **updateFromConfig**(argv: *`ParsedOptions`*, cwd: *`string` \| `undefined`*, eventName: *`string`*): `Promise`<[`string`, `string`]>
 
-*Defined in cli.ts:70*
+*Defined in cli.ts:88*
 
 **Parameters:**
 

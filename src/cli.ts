@@ -34,12 +34,19 @@ export class Cli {
 
     require(composerPath)[eventName](emit)
 
-    const finalArgs =
-      Object.keys(argv).length ? [...args, argv] : args
-    
+    const hasArgv = Object.keys(argv).length
     const finalEventId = eventName.replace(/@[^/]+\//, "")
+    const paths = await this.globPaths(argv)
     
-    return emit.emit(finalEventId, ...finalArgs)
+    return Promise.all(
+      paths.map(async (cwd): Promise<any> =>
+        emit.emit(
+          finalEventId,
+          ...args,
+          ...(hasArgv ? [{ ...argv, cwd }] : [])
+        )
+      )
+    )
   }
 
   private async findComposerPath(
@@ -67,6 +74,17 @@ export class Cli {
     return path
   }
 
+  private async globPaths(
+    argv: getopts.ParsedOptions
+  ): Promise<string[]> {
+    if (!argv.paths) {
+      return [process.cwd()]
+    }
+    return await glob(argv.paths, {
+      ignore: "**/node_modules/**"
+    })
+  }
+
   private async updateFromConfig(
     argv: getopts.ParsedOptions,
     cwd: string | undefined,
@@ -75,7 +93,11 @@ export class Cli {
     const configPath = await findUp("emit.json", { cwd })
 
     if (configPath) {
-      const config = (await readJson(configPath))[eventName]
+      const { defaultArgs, events } = await readJson(
+        configPath
+      )
+      
+      const config = events[eventName]
 
       if (config) {
         if (config.eventName) {
@@ -84,6 +106,10 @@ export class Cli {
         }
 
         Object.assign(argv, config)
+      }
+
+      if (defaultArgs) {
+        Object.assign(argv, { ...defaultArgs, ...argv })
       }
     }
 

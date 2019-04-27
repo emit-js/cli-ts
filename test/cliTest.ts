@@ -21,6 +21,7 @@ test(
   "update from config without event",
   async (): Promise<void> => {
     const argv: getopts.ParsedOptions = { _: [] }
+    
     expect(
       await cli["updateFromConfig"](
         argv, join(root, "test"), "does-not-exist"
@@ -28,7 +29,8 @@ test(
     ).toEqual([
       "does-not-exist", join(root, "test/emit.json")
     ])
-    expect(argv).toEqual({ _: [] })
+    
+    expect(argv).toEqual({ _: [], default: true })
   }
 )
 
@@ -36,11 +38,17 @@ test(
   "update from config with event",
   async (): Promise<void> => {
     const argv: getopts.ParsedOptions = { _: [] }
+    
     expect(
       await cli["updateFromConfig"](
         argv, `${root}test`, "test"
       )
-    ).toEqual(["override", join(root, "test/emit.json")])
-    expect(argv).toEqual({ _: [], extra: true })
+    ).toEqual([
+      "override", join(root, "test/emit.json")
+    ])
+
+    expect(argv).toEqual({
+      _: [], default: true, extra: true
+    })
   }
 )
