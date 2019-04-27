@@ -11,6 +11,7 @@
 ### Methods
 
 * [cli](_cli_.cli.md#cli)
+* [deepMerge](_cli_.cli.md#deepmerge)
 * [findComposerPath](_cli_.cli.md#findcomposerpath)
 * [globPaths](_cli_.cli.md#globpaths)
 * [updateFromConfig](_cli_.cli.md#updatefromconfig)
@@ -34,6 +35,24 @@
 | e | `EventType` |
 
 **Returns:** `Promise`<`any`>
+
+___
+<a id="deepmerge"></a>
+
+### `<Private>` deepMerge
+
+▸ **deepMerge**(argv: *`object`*, config: *`object`*): `void`
+
+*Defined in cli.ts:77*
+
+**Parameters:**
+
+| Name | Type |
+| ------ | ------ |
+| argv | `object` |
+| config | `object` |
+
+**Returns:** `void`
 
 ___
 <a id="findcomposerpath"></a>
@@ -60,7 +79,7 @@ ___
 
 ▸ **globPaths**(argv: *`ParsedOptions`*): `Promise`<`string`[]>
 
-*Defined in cli.ts:77*
+*Defined in cli.ts:89*
 
 **Parameters:**
 
@@ -77,7 +96,7 @@ ___
 
 ▸ **updateFromConfig**(argv: *`ParsedOptions`*, cwd: *`string` \| `undefined`*, eventName: *`string`*): `Promise`<[`string`, `string`]>
 
-*Defined in cli.ts:88*
+*Defined in cli.ts:100*
 
 **Parameters:**
 

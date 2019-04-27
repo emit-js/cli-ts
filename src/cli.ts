@@ -74,6 +74,18 @@ export class Cli {
     return path
   }
 
+  private deepMerge(argv: object, config: object): void {
+    for (const key in config) {
+      const a = argv[key]
+      const c = config[key]
+      if (a && Array.isArray(c)) {
+        argv[key] = c.concat(a)
+      } else {
+        argv[key] = c
+      }
+    }
+  }
+
   private async globPaths(
     argv: getopts.ParsedOptions
   ): Promise<string[]> {
@@ -105,7 +117,7 @@ export class Cli {
           delete config.eventName
         }
 
-        Object.assign(argv, config)
+        this.deepMerge(argv, config)
       }
 
       if (defaultArgs) {
