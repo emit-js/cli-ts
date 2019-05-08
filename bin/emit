@@ -3,7 +3,7 @@
 var Emit = require("@emit-js/emit").Emit
 var emit = new Emit()
 
-require("@emit-js/log").log(emit)
-require("../dist/cli").cli(emit)
+require("@emit-js/log").listen(emit)
+require("../dist/cli").listen(emit)
 
 emit.cli().catch(console.error)

@@ -26,7 +26,7 @@
 
 ▸ **cli**(e: *`EventType`*): `Promise`<`any`>
 
-*Defined in cli.ts:18*
+*Defined in cli.ts:12*
 
 **Parameters:**
 
@@ -43,7 +43,7 @@ ___
 
 ▸ **deepMerge**(argv: *`object`*, config: *`object`*): `void`
 
-*Defined in cli.ts:77*
+*Defined in cli.ts:48*
 
 **Parameters:**
 
@@ -61,7 +61,7 @@ ___
 
 ▸ **findComposerPath**(configPath: *`string`*, eventName: *`string`*): `Promise`<`string`>
 
-*Defined in cli.ts:52*
+*Defined in cli.ts:60*
 
 **Parameters:**
 
@@ -79,7 +79,7 @@ ___
 
 ▸ **globPaths**(argv: *`ParsedOptions`*): `Promise`<`string`[]>
 
-*Defined in cli.ts:89*
+*Defined in cli.ts:85*
 
 **Parameters:**
 
@@ -96,7 +96,7 @@ ___
 
 ▸ **updateFromConfig**(argv: *`ParsedOptions`*, cwd: *`string` \| `undefined`*, eventName: *`string`*): `Promise`<[`string`, `string`]>
 
-*Defined in cli.ts:100*
+*Defined in cli.ts:96*
 
 **Parameters:**
 

@@ -3,16 +3,10 @@ import * as findUp from "find-up"
 import { readJson } from "fs-extra"
 import * as getopts from "getopts"
 import * as globWithCallback from "glob"
-import { dirname } from "path"
+import { dirname, join } from "path"
 import { promisify } from "util"
 
 const glob = promisify(globWithCallback)
-
-declare module "@emit-js/emit" {
-  interface Emit {
-    cli(id: EventIdType): Promise<any>
-  }
-}
 
 export class Cli {
   public async cli(e: EventType): Promise<any> {
@@ -32,21 +26,35 @@ export class Cli {
       configPath, eventName
     )
 
-    require(composerPath)[eventName](emit)
+    await emit.listen(import(composerPath))
 
     const hasArgv = Object.keys(argv).length
-    const finalEventId = eventName.replace(/@[^/]+\//, "")
     const paths = await this.globPaths(argv)
     
     return Promise.all(
       paths.map(async (cwd): Promise<any> =>
         emit.emit(
-          finalEventId,
+          [
+            eventName,
+            ...(hasArgv && argv.id ? argv.id : [])
+          ],
           ...args,
           ...(hasArgv ? [{ ...argv, cwd }] : [])
         )
       )
     )
+  }
+
+  private deepMerge(argv: object, config: object): void {
+    for (const key in config) {
+      const a = argv[key]
+      const c = config[key]
+      if (a && Array.isArray(c)) {
+        argv[key] = c.concat(a)
+      } else {
+        argv[key] = c
+      }
+    }
   }
 
   private async findComposerPath(
@@ -56,7 +64,7 @@ export class Cli {
     const root = configPath
       ? dirname(configPath)
       : process.cwd()
-    
+
     const pattern = `${root}/**/dist/${eventName}.js`
 
     const paths = await glob(pattern, {
@@ -72,18 +80,6 @@ export class Cli {
     }
 
     return path
-  }
-
-  private deepMerge(argv: object, config: object): void {
-    for (const key in config) {
-      const a = argv[key]
-      const c = config[key]
-      if (a && Array.isArray(c)) {
-        argv[key] = c.concat(a)
-      } else {
-        argv[key] = c
-      }
-    }
   }
 
   private async globPaths(
@@ -121,6 +117,11 @@ export class Cli {
       }
 
       if (defaultArgs) {
+        if (typeof defaultArgs.paths === "string") {
+          defaultArgs.paths = join(
+            dirname(configPath), defaultArgs.paths
+          )
+        }
         Object.assign(argv, { ...defaultArgs, ...argv })
       }
     }
@@ -129,7 +130,15 @@ export class Cli {
   }
 }
 
+declare module "@emit-js/emit" {
+  interface Emit {
+    cli(id: EventIdType): Promise<any>
+  }
+}
+
 export function cli(emit: Emit): void {
   const cli = new Cli()
   emit.any("cli", cli.cli.bind(cli))
 }
+
+export const listen = cli

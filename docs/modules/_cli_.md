@@ -15,6 +15,7 @@
 ### Variables
 
 * [glob](_cli_.md#glob)
+* [listen](_cli_.md#listen)
 
 ### Functions
 
@@ -33,6 +34,15 @@
 *Defined in cli.ts:9*
 
 ___
+<a id="listen"></a>
+
+### `<Const>` listen
+
+**● listen**: *[cli](_cli_.md#cli-1)* =  cli
+
+*Defined in cli.ts:144*
+
+___
 
 ## Functions
 
@@ -42,7 +52,7 @@ ___
 
 ▸ **cli**(emit: *`Emit`*): `void`
 
-*Defined in cli.ts:132*
+*Defined in cli.ts:139*
 
 **Parameters:**
 

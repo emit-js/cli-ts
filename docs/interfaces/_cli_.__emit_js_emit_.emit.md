@@ -22,7 +22,7 @@
 
 ▸ **cli**(id: *`EventIdType`*): `Promise`<`any`>
 
-*Defined in cli.ts:13*
+*Defined in cli.ts:135*
 
 **Parameters:**
 
