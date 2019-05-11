@@ -8,6 +8,9 @@
   ],
   "author": "emit <emit@emit-js.com>",
   "main": "dist/cli.js",
+  "bin": {
+    "emit": "./bin/emit"
+  },
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com/emit-js/cli-ts.git"
