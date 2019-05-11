@@ -30,7 +30,7 @@ test(
       "does-not-exist", join(root, "test/emit.json")
     ])
     
-    expect(argv).toEqual({ _: [], default: true })
+    expect(argv).toEqual({ _: [] })
   }
 )
 

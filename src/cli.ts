@@ -114,15 +114,15 @@ export class Cli {
         }
 
         this.deepMerge(argv, config)
-      }
-
-      if (defaultArgs) {
-        if (typeof defaultArgs.paths === "string") {
-          defaultArgs.paths = join(
-            dirname(configPath), defaultArgs.paths
-          )
+        
+        if (defaultArgs) {
+          if (typeof defaultArgs.paths === "string") {
+            defaultArgs.paths = join(
+              dirname(configPath), defaultArgs.paths
+            )
+          }
+          Object.assign(argv, { ...defaultArgs, ...argv })
         }
-        Object.assign(argv, { ...defaultArgs, ...argv })
       }
     }
 
