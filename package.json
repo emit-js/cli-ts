@@ -27,7 +27,7 @@
   },
   "dependencies": {
     "@emit-js/emit": "4.0.7",
-    "@emit-js/log": "2.0.3",
+    "@emit-js/log": "2.0.4",
     "find-up": "3.0.0",
     "fs-extra": "7.0.1",
     "getopts": "2.2.4",
