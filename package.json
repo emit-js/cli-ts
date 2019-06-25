@@ -26,8 +26,8 @@
     "docs": "typedoc --out docs --media media --theme markdown src/*.ts"
   },
   "dependencies": {
-    "@emit-js/emit": "^4.0.11",
-    "@emit-js/log": "2.0.8",
+    "@emit-js/emit": "4.1.0",
+    "@emit-js/log": "2.1.0",
     "find-up": "3.0.0",
     "fs-extra": "7.0.1",
     "getopts": "2.2.4",
